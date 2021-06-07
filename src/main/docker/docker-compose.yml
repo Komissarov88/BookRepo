@@ -1,0 +1,26 @@
+version: '3.2'
+
+volumes:
+  book-store-postgres:
+    driver: local
+
+networks:
+  postgres:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:9.5
+    container_name: book-store-postgres
+    volumes:
+      - type: volume
+        source: book-store-postgres
+        target: /var/lib/postgresql/dataConfig
+    networks:
+      - postgres
+    environment:
+      POSTGRES_DB: bookstore
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+    ports:
+      - "5435:5432"
